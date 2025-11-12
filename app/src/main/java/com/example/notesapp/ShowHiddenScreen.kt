@@ -1,5 +1,3 @@
-// Plik: /app/src/main/java/com/example/notesapp/ShowHiddenScreen.kt
-
 package com.example.notesapp
 
 import androidx.compose.foundation.layout.Column
@@ -22,22 +20,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ShowHiddenScreen(
     onVerify: (String) -> Unit,
-    onSuccess: () -> Unit,
     hasError: Boolean, // Pobieramy stan błędu z zewnątrz
     clearError: () -> Unit // Funkcja do czyszczenia błędu
 ) {
     var password by remember { mutableStateOf("") }
-
-    // Efekt, który wykona się, gdy ViewModel potwierdzi poprawne hasło
-    // (i zresetuje flagę błędu)
-    val notesLoadedSuccessfully = !hasError && password.isNotEmpty()
-    if (notesLoadedSuccessfully) {
-        // Sprawdzamy, czy `password` nie jest pusty, aby uniknąć nawigacji przy starcie
-        // Lepszym podejściem byłoby przekazanie sygnału sukcesu z ViewModel
-        // ale to jest prostsze do zaimplementowania.
-        // **Lepsze rozwiązanie poniżej**
-    }
-
 
     Column(modifier = Modifier.padding(16.dp)) {
         Text(

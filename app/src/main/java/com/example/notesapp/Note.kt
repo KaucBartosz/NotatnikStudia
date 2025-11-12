@@ -3,7 +3,6 @@ package com.example.notesapp
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Entity(tableName = "notes")
@@ -19,11 +18,9 @@ data class Note(
 )
 
 // Funkcje pomocnicze poza klasą
-fun Note.tagsToString(): String = Json.encodeToString(tagsList())
 fun String.toTagsList(): List<String> = try {
     Json.decodeFromString<List<String>>(this)
 } catch (e: Exception) {
     emptyList()
 }
 
-private fun Note.tagsList(): List<String> = tags.toTagsList()

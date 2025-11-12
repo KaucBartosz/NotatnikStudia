@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import java.security.MessageDigest
+import androidx.core.content.edit
 
-class SettingsManager(private val context: Context) {
+class SettingsManager(context: Context) {
     private val masterKey = MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
     private val sharedPrefs = EncryptedSharedPreferences.create(
         context,
@@ -17,7 +18,7 @@ class SettingsManager(private val context: Context) {
 
     fun setPassword(password: String) {
         val hash = MessageDigest.getInstance("SHA-256").digest(password.toByteArray()).joinToString("") { "%02x".format(it) }
-        sharedPrefs.edit().putString("app_password_hash", hash).apply()
+        sharedPrefs.edit { putString("app_password_hash", hash) }
     }
 
     fun getPasswordHash(): String? {

@@ -1,15 +1,18 @@
 package com.example.notesapp
 
+import android.content.ContentValues
+import android.content.Context
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
-import android.content.Context
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import java.io.File
-import java.security.MessageDigest
-import com.example.notesapp.MyApplication
+import kotlinx.coroutines.launch
 
 class NoteViewModel : ViewModel() {
     private val dao = MyApplication.database.noteDao()
@@ -96,12 +99,38 @@ class NoteViewModel : ViewModel() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun exportDatabase(context: Context) {
         val dbFile = context.getDatabasePath("notes.db")
-        val exportDir = context.getExternalFilesDir(null)
-        if (exportDir != null) {
-            val exportFile = File(exportDir, "notes_export.db")
-            dbFile.copyTo(exportFile, overwrite = true)
+        if (!dbFile.exists()) {
+            Toast.makeText(context, "Baza danych nie istnieje.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, "notes_export.db")
+            put(MediaStore.MediaColumns.MIME_TYPE, "application/x-sqlite3")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+            }
+        }
+
+        val resolver = context.contentResolver
+        val uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
+
+        if (uri != null) {
+            try {
+                resolver.openOutputStream(uri).use { outputStream ->
+                    dbFile.inputStream().use { inputStream ->
+                        inputStream.copyTo(outputStream!!)
+                    }
+                }
+                Toast.makeText(context, "Baza danych wyeksportowana do folderu Pobrane.", Toast.LENGTH_LONG).show()
+            } catch (e: Exception) {
+                Toast.makeText(context, "Błąd eksportu: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        } else {
+            Toast.makeText(context, "Błąd przy tworzeniu pliku w folderze Pobrane.", Toast.LENGTH_LONG).show()
         }
     }
 }

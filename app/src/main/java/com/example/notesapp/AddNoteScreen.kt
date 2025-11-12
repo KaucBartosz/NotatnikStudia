@@ -1,5 +1,6 @@
 package com.example.notesapp
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -36,30 +38,32 @@ fun AddNoteScreen(
     var tagsInput by remember { mutableStateOf(initialNote?.tags?.toTagsList()?.joinToString(", ") ?: "") }
     var content by remember { mutableStateOf(initialNote?.content ?: "") }
     var isHidden by remember { mutableStateOf(initialNote?.isHidden ?: false) }
+    val context = LocalContext.current
 
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    val tagsList = tagsInput.split(",").map { it.trim() }.filter { it.isNotBlank() }
-                    val tagsJson = Json.encodeToString<List<String>>(tagsList)
-
-                    val noteToSave = if (initialNote == null) {
-                        Note(
-                            title = title,
-                            content = content,
-                            tags = tagsJson,
-                            isHidden = isHidden
-                        )
+                    if (title.isBlank()) {
+                        Toast.makeText(context, "Tytuł nie może być pusty.", Toast.LENGTH_SHORT).show()
                     } else {
-                        initialNote.copy(
+                        val tagsList = tagsInput.split(",").map { it.trim() }.filter { it.isNotBlank() }
+                        val tagsJson = Json.encodeToString<List<String>>(tagsList)
+
+                        val noteToSave = initialNote?.copy(
                             title = title,
                             content = content,
                             tags = tagsJson,
                             isHidden = isHidden
                         )
+                            ?: Note(
+                                title = title,
+                                content = content,
+                                tags = tagsJson,
+                                isHidden = isHidden
+                            )
+                        onSave(noteToSave)
                     }
-                    onSave(noteToSave)
                 }
             ) {
                 Icon(Icons.Default.Check, contentDescription = if (initialNote == null) "Zapisz notatkę" else "Zaktualizuj notatkę")
@@ -76,7 +80,8 @@ fun AddNoteScreen(
                 value = title,
                 onValueChange = { title = it },
                 label = { Text("Tytuł") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                isError = title.isBlank() // Optionally highlight the field when empty
             )
             OutlinedTextField(
                 value = tagsInput,

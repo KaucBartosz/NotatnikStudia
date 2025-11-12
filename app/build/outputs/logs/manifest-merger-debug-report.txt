@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:2:1-28:12
-INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:2:1-28:12
-INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:2:1-28:12
-INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:2:1-28:12
+ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:2:1-26:12
 MERGED from [androidx.navigation:navigation-common:2.7.7] C:\Users\Bartosz\.gradle\caches\8.13\transforms\24bdbbce8a9f23b16303c83e8249d6e1\transformed\navigation-common-2.7.7\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-runtime:2.7.7] C:\Users\Bartosz\.gradle\caches\8.13\transforms\a30c432e524a87cb58d2fad54e70a1a8\transformed\navigation-runtime-2.7.7\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-common-ktx:2.7.7] C:\Users\Bartosz\.gradle\caches\8.13\transforms\6e42f027ccee638c7a7ce7a8ab51d071\transformed\navigation-common-ktx-2.7.7\AndroidManifest.xml:2:1-7:12
@@ -95,15 +95,13 @@ MERGED from [androidx.print:print:1.0.0] C:\Users\Bartosz\.gradle\caches\8.13\tr
 		INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml
-	xmlns:tools
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:5:5-26:19
-INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:5:5-26:19
+ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:4:5-24:19
+INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:4:5-24:19
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\Bartosz\.gradle\caches\8.13\transforms\6b52dea892d5febb2a5ededbcca717d2\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\Bartosz\.gradle\caches\8.13\transforms\6b52dea892d5febb2a5ededbcca717d2\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\Bartosz\.gradle\caches\8.13\transforms\1b81505703cea6c7cc7ee366807dd082\transformed\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
@@ -131,43 +129,41 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Ba
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.17.0] C:\Users\Bartosz\.gradle\caches\8.13\transforms\82cdfcd02b749f8c9923026d8e55b366\transformed\core-1.17.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:13:9-35
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:12:9-35
 	android:label
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:11:9-41
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:10:9-41
 	android:fullBackupContent
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:9:9-54
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:8:9-54
 	android:roundIcon
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:12:9-54
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:11:9-54
 	android:icon
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:10:9-43
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:9:9-43
 	android:allowBackup
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:7:9-35
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:6:9-35
 	android:theme
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:14:9-46
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:13:9-46
 	android:dataExtractionRules
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:8:9-65
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:7:9-65
 	android:name
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:6:9-38
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:5:9-38
 activity#com.example.notesapp.MainActivity
-ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:15:9-25:20
-	android:label
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:18:13-45
+ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:14:9-23:20
 	android:exported
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:17:13-36
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:16:13-36
 	android:theme
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:19:13-50
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:17:13-50
 	android:name
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:16:13-41
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:15:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:20:13-24:29
+ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:18:13-22:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:21:17-69
+ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:19:17-69
 	android:name
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:21:25-66
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:19:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:23:17-77
+ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:21:17-77
 	android:name
-		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:23:27-74
+		ADDED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml:21:27-74
 uses-sdk
 INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Bartosz\Desktop\NotatnikStudia\app\src\main\AndroidManifest.xml

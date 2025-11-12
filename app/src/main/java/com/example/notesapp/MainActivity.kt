@@ -34,14 +34,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.notesapp.ui.theme.NotesAppTheme
 import kotlinx.coroutines.launch
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.compose.runtime.collectAsState
-import androidx.compose.material.icons.filled.VisibilityOff // <-- 1. DODAJ TEN IMPORT
-import androidx.navigation.compose.currentBackStackEntryAsState
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
@@ -221,7 +214,6 @@ class MainActivity : ComponentActivity() {
                                     }
                                     ShowHiddenScreen(
                                         onVerify = { password -> viewModel.showHiddenNotes(password) },
-                                        onSuccess = { /* Nawigacja jest teraz obsługiwana przez LaunchedEffect */ },
                                         hasError = hasError,
                                         clearError = { viewModel.resetPasswordError() }
                                     )
