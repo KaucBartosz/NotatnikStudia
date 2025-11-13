@@ -1,5 +1,6 @@
 package com.example.notesapp
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -38,6 +39,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
+    // Inicjalizacja ViewModel, która przetrwa zmiany konfiguracji (np. obrót ekranu)
     private val viewModel: NoteViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,15 +50,26 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    // --- Stany UI ---
+                    // Stan szuflady nawigacyjnej (czy jest otwarta, czy zamknięta)
                     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+                    // Zakres korutyn do operacji asynchronicznych (np. otwieranie szuflady)
                     val scope = rememberCoroutineScope()
+                    // Kontroler nawigacji, zarządza ekranami (Composable)
                     val navController = rememberNavController()
+                    // Obserwacja listy notatek z ViewModel. UI odświeży się automatycznie przy zmianie.
                     val notes by viewModel.notes.collectAsState()
+                    // Efekt chowania paska nawigacji przy przewijaniu
                     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-                    
+
+                    // --- Logika Nawigacji ---
+                    // Pobranie aktualnej ścieżki (route) w celu warunkowego wyświetlania UI
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentRoute = navBackStackEntry?.destination?.route
+                    // Sprawdzenie, czy tryb pokazywania ukrytych notatek jest aktywny
                     val isShowingHidden by viewModel.isShowingHidden.collectAsState()
+
+                    // Główny layout z wysuwanym menu (szufladą)
                     ModalNavigationDrawer(
                         drawerState = drawerState,
                         drawerContent = {
@@ -65,6 +78,7 @@ class MainActivity : ComponentActivity() {
                                     scope.launch {
                                         drawerState.close()
                                     }
+                                    // Lista chronionych ścieżek, które wymagają hasła
                                     val protectedRoutes = setOf("search_title", "search_content", "filter_tag")
 
                                     // Sprawdź, czy trasa jest chroniona i czy hasło jest ustawione
@@ -79,6 +93,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     ) {
+                        // Standardowy layout Material Design (TopAppBar, FAB, content)
                         Scaffold(
                             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                             topBar = {
@@ -92,7 +107,9 @@ class MainActivity : ComponentActivity() {
                                     scrollBehavior = scrollBehavior
                                 )
                             },
+                            // --- Warunkowy Floating Action Button ---
                             floatingActionButton = {
+                                // Wyświetlaj przycisk tylko na głównym ekranie listy notatek
                                 if (currentRoute == "list") {
                                     if (isShowingHidden) {
                                         // Jeśli pokazujemy ukryte notatki, wyświetl przycisk "Ukryj"
@@ -114,11 +131,13 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         ) { padding ->
+                            // Host dla nawigacji - tutaj definiowane są wszystkie ekrany
                             NavHost(
                                 navController = navController,
                                 startDestination = "list",
                                 modifier = Modifier.padding(padding)
                             ) {
+                                // Ekran weryfikacji hasła
                                 composable("verify/{route}") { backStackEntry ->
                                     // Pobierz docelową trasę z argumentów nawigacji
                                     val targetRoute = backStackEntry.arguments?.getString("route") ?: "list"
@@ -127,11 +146,9 @@ class MainActivity : ComponentActivity() {
                                     VerificationScreen(
                                         onVerify = { password ->
                                             viewModel.verifyPasswordAndProceed(password) {
-                                                // To jest akcja `onSuccess`
-                                                // Nawiguj do docelowej trasy po poprawnym haśle
+                                                // Akcja `onSuccess` - nawiguj do celu po poprawnym haśle
                                                 navController.navigate(targetRoute) {
-                                                    // Usuń ekran weryfikacji ze stosu nawigacji,
-                                                    // aby przycisk "wstecz" nie wracał do niego
+                                                    // Usuń ekran weryfikacji ze stosu, aby nie można było do niego wrócić
                                                     popUpTo("verify/{route}") { inclusive = true }
                                                 }
                                             }
@@ -140,6 +157,7 @@ class MainActivity : ComponentActivity() {
                                         clearError = { viewModel.resetPasswordError() }
                                     )
                                 }
+                                // Ekran główny z listą notatek
                                 composable("list") {
                                     NoteListScreen(
                                         notes = notes,
@@ -149,13 +167,14 @@ class MainActivity : ComponentActivity() {
                                         }
                                     )
                                 }
-
+                                // Ekran dodawania nowej notatki
                                 composable("add") {
                                     AddNoteScreen(onSave = { note ->
                                         viewModel.insert(note)
-                                        navController.popBackStack()
+                                        navController.popBackStack() // Wróć do poprzedniego ekranu
                                     })
                                 }
+                                // Ekran edycji notatki (z dynamicznym ID w ścieżce)
                                 composable("edit/{noteId}") { backStackEntry ->
                                     val noteId = backStackEntry.arguments?.getString("noteId")?.toIntOrNull()
                                     val note = notes.find { it.id == noteId }
@@ -169,6 +188,7 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
                                 }
+                                // Pozostałe ekrany (wyszukiwanie, filtrowanie, ustawienia, itp.)
                                 composable("search_title") {
                                     SearchTitleScreen(
                                         onSearch = { query -> viewModel.searchByTitle(query) },
@@ -194,22 +214,16 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                                 composable("show_hidden") {
-                                    // Pobieramy stan błędu z ViewModel
                                     val hasError by viewModel.passwordVerificationError.collectAsState()
-                                    val allNotes by viewModel.notes.collectAsState() // Obserwujemy notatki
+                                    val allNotes by viewModel.notes.collectAsState()
 
-                                    // Ten blok wykona się, gdy stan się zmieni.
-                                    // Jeśli hasło było poprawne, ViewModel załaduje wszystkie notatki (w tym ukryte)
-                                    // i zresetuje flagę błędu.
+                                    // Ten blok nawiguje automatycznie po pomyślnej weryfikacji hasła
                                     LaunchedEffect(allNotes) {
-                                        // Sprawdzamy, czy notatki zawierają jakieś ukryte elementy
-                                        // i czy nie ma błędu, co oznacza sukces
                                         if (allNotes.any { it.isHidden } && !hasError) {
                                             navController.navigate("list") {
-                                                // Czyścimy backstack, aby użytkownik nie mógł wrócić do ekranu hasła
                                                 popUpTo("list") { inclusive = true }
                                             }
-                                            viewModel.resetPasswordError() // Resetujemy na wszelki wypadek
+                                            viewModel.resetPasswordError()
                                         }
                                     }
                                     ShowHiddenScreen(
@@ -220,7 +234,10 @@ class MainActivity : ComponentActivity() {
                                 }
                                 composable("export") {
                                     ExportScreen(
-                                        onExport = { viewModel.exportDatabase(this@MainActivity) }
+                                        onExport = { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                                            viewModel.exportDatabase(this@MainActivity)
+                                        }
+                                        }
                                     )
                                 }
                                 composable("settings") {

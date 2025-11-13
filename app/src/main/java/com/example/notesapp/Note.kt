@@ -9,9 +9,9 @@ import kotlinx.serialization.json.Json
 @Serializable
 data class Note(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0, // <-- ADD a numeric ID as the primary key
+    val id: Int = 0, // ID as the primary key
 
-    val title: String,    // <-- REMOVE @PrimaryKey from here
+    val title: String,
     val content: String,
     val tags: String,
     val isHidden: Boolean = false

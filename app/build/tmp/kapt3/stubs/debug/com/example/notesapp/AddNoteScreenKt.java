@@ -3,6 +3,16 @@ package com.example.notesapp;
 @kotlin.Metadata(mv = {1, 9, 0}, k = 2, xi = 48, d1 = {"\u0000\u0014\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\u001a(\u0010\u0000\u001a\u00020\u00012\n\b\u0002\u0010\u0002\u001a\u0004\u0018\u00010\u00032\u0012\u0010\u0004\u001a\u000e\u0012\u0004\u0012\u00020\u0003\u0012\u0004\u0012\u00020\u00010\u0005H\u0007\u00a8\u0006\u0006"}, d2 = {"AddNoteScreen", "", "initialNote", "Lcom/example/notesapp/Note;", "onSave", "Lkotlin/Function1;", "app_debug"})
 public final class AddNoteScreenKt {
     
+    /**
+     * Komponent Composable renderujący ekran do dodawania lub edycji notatki.
+     * Jest to komponent "dwufunkcyjny", którego zachowanie zależy od przekazanego parametru `initialNote`.
+     * - Gdy `initialNote` jest `null`, ekran działa w trybie tworzenia nowej notatki.
+     * - Gdy `initialNote` zawiera dane, ekran działa w trybie edycji, wypełniając pola istniejącymi wartościami.
+     *
+     * @param initialNote Opcjonalny obiekt `Note`, który służy do wypełnienia pól w trybie edycji.
+     * @param onSave Funkcja zwrotna (callback), wywoływana po naciśnięciu przycisku zapisu.
+     *              Przekazuje ona gotowy obiekt `Note` (nowy lub zaktualizowany) do warstwy wyższej (ViewModel).
+     */
     @kotlin.OptIn(markerClass = {androidx.compose.material3.ExperimentalMaterial3Api.class})
     @androidx.compose.runtime.Composable()
     public static final void AddNoteScreen(@org.jetbrains.annotations.Nullable()

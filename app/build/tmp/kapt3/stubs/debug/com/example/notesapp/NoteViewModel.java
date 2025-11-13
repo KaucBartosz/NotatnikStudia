@@ -38,37 +38,58 @@ public final class NoteViewModel extends androidx.lifecycle.ViewModel {
     
     /**
      * Weryfikuje hasło i jeśli jest poprawne, wykonuje przekazaną akcję `onSuccess`.
+     * Używane do ochrony dostępu do sekcji wymagających autoryzacji.
      * @param password Hasło wprowadzone przez użytkownika.
-     * @param onSuccess Lambda, która zostanie wywołana po pomyślnej weryfikacji.
+     * @param onSuccess Lambda, która zostanie wywołana po pomyślnej weryfikacji (np. nawigacja).
      */
     public final void verifyPasswordAndProceed(@org.jetbrains.annotations.NotNull()
     java.lang.String password, @org.jetbrains.annotations.NotNull()
     kotlin.jvm.functions.Function0<kotlin.Unit> onSuccess) {
     }
     
+    /**
+     * Po poprawnej weryfikacji hasła, ładuje *wszystkie* notatki z bazy danych (w tym ukryte).
+     */
     @org.jetbrains.annotations.NotNull()
     public final kotlinx.coroutines.Job showHiddenNotes(@org.jetbrains.annotations.NotNull()
     java.lang.String password) {
         return null;
     }
     
+    /**
+     * Wychodzi z trybu pokazywania ukrytych notatek, ładując ponownie tylko widoczne.
+     */
     public final void hideNotesAgain() {
     }
     
+    /**
+     * Resetuje flagę błędu hasła, np. gdy użytkownik zaczyna pisać ponownie
+     * lub opuszcza ekran weryfikacji.
+     */
     public final void resetPasswordError() {
     }
     
+    /**
+     * Ładuje z bazy danych tylko notatki, które nie są ukryte.
+     * Uruchamiane w `viewModelScope`, aby operacja na bazie danych odbyła się w tle.
+     */
     @org.jetbrains.annotations.NotNull()
     public final kotlinx.coroutines.Job loadVisibleNotes() {
         return null;
     }
     
+    /**
+     * Wstawia nową notatkę lub aktualizuje istniejącą, a następnie odświeża listę.
+     */
     @org.jetbrains.annotations.NotNull()
     public final kotlinx.coroutines.Job insert(@org.jetbrains.annotations.NotNull()
     com.example.notesapp.Note note) {
         return null;
     }
     
+    /**
+     * Usuwa notatkę, a następnie odświeża listę.
+     */
     @org.jetbrains.annotations.NotNull()
     public final kotlinx.coroutines.Job delete(@org.jetbrains.annotations.NotNull()
     com.example.notesapp.Note note) {
@@ -93,6 +114,10 @@ public final class NoteViewModel extends androidx.lifecycle.ViewModel {
         return null;
     }
     
+    /**
+     * Eksportuje bazę danych do publicznego folderu "Pobrane" (Downloads)
+     * za pomocą MediaStore API, co jest nowoczesnym i zalecanym podejściem.
+     */
     @androidx.annotation.RequiresApi(value = android.os.Build.VERSION_CODES.Q)
     public final void exportDatabase(@org.jetbrains.annotations.NotNull()
     android.content.Context context) {

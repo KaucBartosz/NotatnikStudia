@@ -14,6 +14,6 @@ fun ExportScreen(onExport: () -> Unit) {
         Button(onClick = onExport) {
             Text("Eksportuj bazę do pliku")
         }
-        Text("Plik zostanie zapisany w katalogu aplikacji.")
+        Text("Plik zostanie zapisany w katalogu Pobrane.")
     }
 }
